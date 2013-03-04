@@ -24,4 +24,4 @@ PKG_LIBS = `$(R_HOME)/bin/Rscript -e "Rcpp:::LdFlags()"` `python2.7-config --ldf
 ## done by a number of packages, but recommended only for more advanced users
 ## comfortable with autoconf and its related tools.
 
-PKG_CXXFLAGS = `python2.7-config --cflags`
+PKG_CFLAGS = `python2.7-config --cflags`

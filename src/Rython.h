@@ -1,4 +1,4 @@
-#include <Rcpp.h>
+#include "RcppExtension.h"
 #include "PythonInterface.h"
 
 RcppExport SEXP Rython__initialize();

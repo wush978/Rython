@@ -3,9 +3,9 @@ cmake_minimum_required(VERSION 2.8)
 project(Rython)
 
 find_package(LibR REQUIRED)
+set(Python_ADDITIONAL_VERSIONS 2.7)
 find_package(PythonLibs REQUIRED)
 include_directories(${PYTHON_INCLUDE_DIRS})
-target_link_libraries(Rython ${PYTHON_LIBRARIES})
 
 if(${LIBR_FOUND})
 else()
@@ -13,7 +13,7 @@ else()
 endif()
 include_directories(BEFORE ${LIBR_INCLUDE_DIRS})
 
-include_directories(BEFORE "/home/wush/R/i686-pc-linux-gnu-library/2.15/Rcpp/include")
+include_directories(BEFORE "/home/wush/R/x86_64-pc-linux-gnu-library/2.15/Rcpp/include")
 
 add_custom_target(Rython ALL
 	COMMAND find ${CMAKE_SOURCE_DIR} -name "*.o" -exec rm "{}" "\;"

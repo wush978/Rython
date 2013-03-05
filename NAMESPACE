@@ -1,3 +1,4 @@
 export(.Last.lib)
 export(py)
+export(pyfun)
 useDynLib(Rython)

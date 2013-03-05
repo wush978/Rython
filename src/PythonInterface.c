@@ -1,5 +1,4 @@
 #include <dlfcn.h>
-#include <Python.h>
 #include "PythonInterface.h"
 
 void Rython_initialize(void) {
@@ -10,8 +9,4 @@ void Rython_initialize(void) {
   
 void Rython_finalize(void) {
   Py_Finalize();
-}
-  
-void Rython_run(const char* script) {
-  PyRun_SimpleString(script);
 }

@@ -2,13 +2,14 @@
 #ifndef __PYTHONINTERFACE_H__
 #define __PYTHONINTERFACE_H__
 
+#include <Python.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif //__cplusplus
 
 void Rython_initialize(void);
 void Rython_finalize(void);
-void Rython_run(const char* script);
 
 #ifdef __cplusplus
 }

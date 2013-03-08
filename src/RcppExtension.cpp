@@ -21,12 +21,11 @@ namespace Rython {
 	}
 
 	SEXP wrap(py::list& src) {
-		StrVec glue;
-		glue.reserve(py::len(src));
+    CharacterVector retval;
 		for(int i = 0;i < py::len(src);i++) {
-			glue.push_back(py::extract<std::string>(src[i]));
+			retval.push_back(py::extract<std::string>(src[i]));
 		}
-		return Rcpp::wrap(glue);
+		return retval;
 	}
 
 }

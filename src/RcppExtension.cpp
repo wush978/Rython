@@ -11,10 +11,11 @@ typedef std::vector<std::string> StrVec;
 
 namespace Rython {
 
-	py::list as(SEXP src) {
-		StrVec glue(Rcpp::as<StrVec>(src));
+	py::list as(const CharacterVector& src) {
+    std::string glue;
 		py::list retval;
-		for(int i = 0;i < glue.size();i++) {
+		for(int i = 0;i < src.size();i++) {
+      
 			retval.append(glue[i]);
 		}
 		return retval;

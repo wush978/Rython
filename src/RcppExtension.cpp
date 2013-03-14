@@ -15,18 +15,18 @@ namespace Rython {
     std::string glue;
 		py::list retval;
 		for(int i = 0;i < src.size();i++) {
-      
-			retval.append(glue[i]);
+      glue.assign(CHAR(STRING_ELT(src.asSexp(), i)));
+			retval.append(glue);
 		}
 		return retval;
 	}
 
 	SEXP wrap(py::list& src) {
-    CharacterVector retval;
+    std::vector< std::string > glue;
 		for(int i = 0;i < py::len(src);i++) {
-			retval.push_back(py::extract<std::string>(src[i]));
+			glue.push_back(py::extract<std::string>(src[i]));
 		}
-		return retval;
+		return Rcpp::wrap(glue);
 	}
 
 }

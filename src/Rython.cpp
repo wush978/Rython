@@ -41,9 +41,18 @@ SEXP Rython__call(SEXP Rpymodule_name, SEXP Rpyfun_name, SEXP Rpyfun_argv) {
 		if (!PyCallable_Check(pyfun.ptr())) {
 			throw std::invalid_argument("pyfun_name is not a callable");
 		}
-		py::list argv(Rython::as(Rpyfun_argv));
-		py::list result(pyfun(argv));
-		return Rython::wrap(result);
+    if (Rf_isString(Rpyfun_argv)) {
+      Rcpp::CharacterVector pyfun_argv(Rpyfun_argv);
+  		py::list argv(Rython::as(pyfun_argv));
+  		py::list result(pyfun(argv));
+  		return Rython::wrap(result);
+    }
+    if (Rf_isVector(Rpyfun_argv)) {
+      Rcpp::List pyfun_argv(Rpyfun_argv);
+    	py::list argv(Rython::as(pyfun_argv));
+  		py::list result(pyfun(argv));
+  		return Rython::wrap(result);
+    }
 	}
 	catch (py::error_already_set) {
 		PyErr_Print();

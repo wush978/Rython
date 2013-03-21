@@ -6,11 +6,12 @@
 namespace py = boost::python;
 
 using Rcpp::CharacterVector;
+using Rcpp::List;
 
 typedef std::vector<std::string> StrVec;
 
 namespace Rython {
-
+  
 	py::list as(const CharacterVector& src) {
     std::string glue;
 		py::list retval;
@@ -21,6 +22,16 @@ namespace Rython {
 		return retval;
 	}
 
+  py::list as(const List& src) {
+    py::list retval;
+    
+    for(int i = 0;i < src.size();i++) {
+      CharacterVector element(VECTOR_ELT(src.asSexp(), i));
+      retval.append(as(element));
+    }
+    return(retval);
+  }
+  
 	SEXP wrap(py::list& src) {
     std::vector< std::string > glue;
 		for(int i = 0;i < py::len(src);i++) {

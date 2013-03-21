@@ -24,5 +24,6 @@ py <- function(script) {
 #'pyfun("test_fun", letters)
 #'@export
 pyfun <- function(fun_name, argv, module = "__main__") {
-  .Call("Rython__call", module, as.character(fun_name)[1], as.character(argv))
+  if (! class(argv) %in% c("character", "list")) stop("invalid type")
+  .Call("Rython__call", module, as.character(fun_name)[1], argv)
 }

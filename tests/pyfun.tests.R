@@ -1,13 +1,16 @@
 library(Rython)
 
 script <- '
-def test_Rython1(argv1):
-    print argv1
-    return argv1
+def test_Rython1(argv):
+    print argv
+    return ["a","b"]
 '
 
 py(script)
-temp <- capture.output({
-  stopifnot(all.equal(letters, pyfun("test_Rython1", letters)))
-}, file=NULL)
-stopifnot(all.equal(temp, letters))
+pyfun("test_Rython1", letters)
+pyfun("test_Rython1", list(letters, letters))
+
+# temp <- capture.output({
+#   stopifnot(all.equal(letters, pyfun("test_Rython1", letters)))
+# }, file=NULL)
+# stopifnot(all.equal(temp, letters))

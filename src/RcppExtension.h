@@ -8,6 +8,7 @@
 namespace Rython {
 
 	boost::python::list as(const Rcpp::CharacterVector& src);
+  boost::python::list as(const Rcpp::List& src);
 
 	SEXP wrap(boost::python::list&);
 

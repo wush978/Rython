@@ -2,7 +2,6 @@
 
 namespace py = boost::python;
 
-
 SEXP Rython__initialize() {
 	BEGIN_RCPP
 	Rython_initialize();

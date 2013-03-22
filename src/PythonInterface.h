@@ -10,6 +10,8 @@ extern "C" {
 
 void Rython_initialize(void);
 void Rython_finalize(void);
+static PyObject* redirection_stdoutredirect(PyObject* self, PyObject *args);
+extern PyMethodDef RedirectionMethods[];
 
 #ifdef __cplusplus
 }

@@ -6,6 +6,11 @@ Embed python in R
 
 Ubuntu with python 2.7
 
+Please install the following ubuntu packages:
+
+- python-dev
+- libboost-python-dev
+
 # Usage
 
 ```r

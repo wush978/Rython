@@ -13,3 +13,4 @@ LinkingTo: Rcpp
 Collate:
     'utility.R'
     'py.R'
+    'conversion.R'

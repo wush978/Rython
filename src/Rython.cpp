@@ -59,3 +59,24 @@ SEXP Rython__call(SEXP Rpymodule_name, SEXP Rpyfun_name, SEXP Rpyfun_argv) {
 
 	END_RCPP
 }
+
+RcppExport SEXP Rython__pylong(SEXP Rscr) {
+	BEGIN_RCPP
+	END_RCPP
+}
+RcppExport SEXP Rython__pyfloat(SEXP Rscr) {
+	BEGIN_RCPP
+	END_RCPP
+}
+RcppExport SEXP Rython__pybool(SEXP Rscr) {
+	BEGIN_RCPP
+	END_RCPP
+}
+RcppExport SEXP Rython__pycomplex(SEXP Rscr) {
+	BEGIN_RCPP
+	END_RCPP
+}
+RcppExport SEXP Rython__pystr(SEXP Rscr) {
+	BEGIN_RCPP
+	END_RCPP
+}

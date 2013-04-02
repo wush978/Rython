@@ -36,12 +36,15 @@ py("
 def test_fun(*args):
     for arg in args:
         print 'another arg:', arg
+    return arg
 ")
 
 test_fun <- pyobj("", "test_fun")
 gc()
-temp <- capture.output(pycall(test_fun, pylong(1:10L), pystr(letters)))
-stopifnot(length(temp) == 3)
+temp <- capture.output(temp2 <- pycall(test_fun, pylong(1:10L), pystr(letters)))
+stopifnot(length(temp) == 2)
 stopifnot(temp[1] == "another arg: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]")
 stopifnot(temp[2] == "another arg: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']")
-stopifnot(grep("pointer", temp[3]) == 1)
+stopifnot(class(temp2) == "externalptr")
+
+pywrap(temp2)

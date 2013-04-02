@@ -28,3 +28,8 @@ pycall <- function(py_callable, ...) {
   argv <- list(...)
   .Call("Rython__call", py_callable, argv);
 }
+
+#'@export
+pywrap <- function(src) {
+  .Call("Rython__wrap", src);
+} 

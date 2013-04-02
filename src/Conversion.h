@@ -11,5 +11,6 @@ RcppExport SEXP Rython__pybool(SEXP Rscr);
 RcppExport SEXP Rython__pystr(SEXP Rscr);
 RcppExport SEXP Rython__retrieve_pyobj(SEXP Rmodule_name, SEXP Rfun_name);
 RcppExport SEXP Rython__call(SEXP Rpy_callable, SEXP Rargv);
+RcppExport SEXP Rython__wrap(SEXP Rsrc, SEXP Ris_list);
 
 #endif //__CONVERSION_H__

@@ -85,3 +85,25 @@ SEXP Rython__call(SEXP Rpy_callable, SEXP Rargv) {
    
   END_RCPP
 }
+
+RcppExport SEXP Rython__wrap(SEXP Rsrc, SEXP Ris_list) {
+  BEGIN_RCPP
+  try {
+    bool is_list(Rcpp::as<bool>(Ris_list));
+    py::list& src(*PyList(Rsrc));
+    int n = py::len(*src);
+    if (n == 0) return R_NilValue;
+    if (is_list) {
+      Rcpp::List retval(n);
+      for(int i = 0;i < n;i++) {
+        py::object temp(py::extract<py::object>(src[i]));
+        
+      }
+      return retval;
+    }
+  }
+  catch (py::error_already_set) {
+  	PyErr_Print();
+	}
+  END_RCPP
+}

@@ -76,7 +76,8 @@ SEXP Rython__call(SEXP Rpy_callable, SEXP Rargv) {
       PyList argv_element(Rcpp::wrap(argv[i]));
       args.append(*argv_element);
     }
-    py::object retval((*py_callable)(*boost::python::tuple(args)));
+    PyObj retval(new py::object((*py_callable)(*boost::python::tuple(args))));
+    return retval;
   }
   catch (py::error_already_set) {
 		PyErr_Print();

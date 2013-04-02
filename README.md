@@ -18,6 +18,10 @@ library(Rython)
 py("python script")
 ```
 
+# Type Mapping
+
+
+
 ## Demo of cql 1.4
 
 The following script query the Cassandra with python-cql 1.4 and pass the value back to R

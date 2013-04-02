@@ -30,6 +30,6 @@ pycall <- function(py_callable, ...) {
 }
 
 #'@export
-pywrap <- function(src) {
-  .Call("Rython__wrap", src);
+pywrap <- function(src, is_list = TRUE) {
+  .Call("Rython__wrap", src, is_list);
 } 

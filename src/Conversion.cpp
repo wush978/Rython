@@ -1,3 +1,4 @@
+#include <map>
 #include "Conversion.h"
 #include <boost/python/raw_function.hpp>
 
@@ -96,10 +97,60 @@ RcppExport SEXP Rython__wrap(SEXP Rsrc, SEXP Ris_list) {
     if (is_list) {
       Rcpp::List retval(n);
       for(int i = 0;i < n;i++) {
-        py::object temp(py::extract<py::object>(src[i]));
-        
-      }
+        py::object temp = py::extract<py::object>(src[i]);
+        if (PyString_Check(temp.ptr())) {
+          retval[i] = Rcpp::wrap<std::string>(py::extract<std::string>(src[i]));
+        }
+        else if (temp.ptr() == Py_None) {
+          retval[i] = R_NilValue;
+        }
+        else if (PyBool_Check(temp.ptr())) {
+          retval[i] = Rcpp::wrap<bool>(py::extract<bool>(src[i]));
+        }
+        else if (PyInt_Check(temp.ptr()) || PyLong_Check(temp.ptr())) {
+          retval[i] = Rcpp::wrap<long>(py::extract<long>(src[i]));
+        }
+        else if (PyFloat_Check(temp.ptr())) {
+          retval[i] = Rcpp::wrap<double>(py::extract<double>(src[i]));
+        }
+      } // for
       return retval;
+    }
+    else { // is_list
+      int j = 0;
+      py::object first_element = py::extract<py::object>(src[j]);
+      if (PyString_Check(first_element.ptr())) {
+        std::vector<std::string> retval;
+        retval.reserve(n);
+        for(int i = 0;i < n;i++) {
+          retval.push_back(py::extract<std::string>(src[i]));
+        }
+        return Rcpp::wrap(retval);
+      }
+      else if (first_element.ptr() == Py_None) {
+        return R_NilValue;
+      }
+      else if (PyBool_Check(first_element.ptr())) {
+        Rcpp::LogicalVector retval(n);
+        for(int i = 0;i < n;i++) {
+          retval[i] = py::extract<bool>(src[i]);
+        }
+        return retval;
+      }
+      else if (PyInt_Check(first_element.ptr()) || PyLong_Check(first_element.ptr())) {
+        Rcpp::IntegerVector retval(n);
+        for(int i = 0;i < n;i++) {
+          retval[i] = py::extract<long>(src[i]);
+        }
+        return retval;
+      }
+      else if (PyFloat_Check(first_element.ptr())) {
+        Rcpp::NumericVector retval(n);
+        for(int i = 0;i < n;i++) {
+          retval[i] = py::extract<double>(src[i]);
+        }
+        return retval;
+      }
     }
   }
   catch (py::error_already_set) {

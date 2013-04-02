@@ -14,11 +14,17 @@ pybool <- function(src) {
 }
 
 #'@export
-pycomplex <- function(src) {
-  .Call("Rython__pycomplex", src)	
+pystr <- function(src) {
+  .Call("Rython__pystr", src)
 }
 
 #'@export
-pystr <- function(src) {
-  .Call("Rython__pystr", src)
+pyobj <- function(module_name, obj_name) {
+  .Call("Rython__retrieve_pyobj", module_name, obj_name)
+}
+
+#'@export
+pycall <- function(py_callable, ...) {
+  argv <- list(...)
+  .Call("Rython__call", py_callable, argv);
 }

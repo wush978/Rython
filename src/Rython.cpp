@@ -25,7 +25,7 @@ SEXP Rython__run(SEXP Rpy_script) {
 	END_RCPP
 }
 
-SEXP Rython__call(SEXP Rpymodule_name, SEXP Rpyfun_name, SEXP Rpyfun_argv) {
+SEXP Rython__fun(SEXP Rpymodule_name, SEXP Rpyfun_name, SEXP Rpyfun_argv) {
 	BEGIN_RCPP
 
 	try {

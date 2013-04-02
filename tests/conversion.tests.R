@@ -28,3 +28,20 @@ for(i in 1:100) {
   rm(b)
   gc()
 }
+
+py("import urllib")
+urllib.urlencode <- pyobj("urllib", "urlencode")
+
+py("
+def test_fun(*args):
+    for arg in args:
+        print 'another arg:', arg
+")
+
+test_fun <- pyobj("", "test_fun")
+gc()
+temp <- capture.output(pycall(test_fun, pylong(1:10L), pystr(letters)))
+stopifnot(length(temp) == 3)
+stopifnot(temp[1] == "another arg: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]")
+stopifnot(temp[2] == "another arg: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']")
+stopifnot(temp[3] == "NULL")

@@ -8,7 +8,7 @@ Maintainer: Who to complain to <yourfault@somewhere.net>
 Description: More about what it does (maybe more than one line)
 License: What Licence is it under ?
 Depends:
-    Rcpp (>= 0.10.2)
+    Rcpp (>= 0.10.3)
 LinkingTo: Rcpp
 Collate:
     'utility.R'

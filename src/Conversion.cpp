@@ -113,6 +113,9 @@ RcppExport SEXP Rython__wrap(SEXP Rsrc, SEXP Ris_list) {
         else if (PyFloat_Check(temp.ptr())) {
           retval[i] = Rcpp::wrap<double>(py::extract<double>(src[i]));
         }
+        else if (PyUnicode_Check(temp.ptr())) {
+          retval[i] = Rcpp::wrap<std::wstring>(py::extract<std::wstring>(src[i]));
+        }
       } // for
       return retval;
     }
@@ -150,6 +153,14 @@ RcppExport SEXP Rython__wrap(SEXP Rsrc, SEXP Ris_list) {
           retval[i] = py::extract<double>(src[i]);
         }
         return retval;
+      }
+      else if (PyUnicode_Check(first_element.ptr())) {
+        std::vector< std::wstring > retval;
+        retval.resize(n);
+        for(int i = 0;i < n;i++) {
+          retval.push_back(py::extract<std::wstring>(src[i]));
+        }
+        return Rcpp::wrap<std::vector<std::wstring> >(retval);
       }
     }
   }

@@ -59,3 +59,20 @@ SEXP Rython__fun(SEXP Rpymodule_name, SEXP Rpyfun_name, SEXP Rpyfun_argv) {
 
 	END_RCPP
 }
+
+SEXP Rython__asign(SEXP Rpy_ptr, SEXP Rname, SEXP Rmodule_name) {
+  BEGIN_RCPP
+  try {
+  	const char
+			*pymodule_name = ::CHAR(::STRING_ELT(Rmodule_name, 0)),
+			*name = ::CHAR(::STRING_ELT(Rname, 0));
+    py::object module((py::handle<>(py::borrowed(PyImport_AddModule(pymodule_name)))));
+    Rcpp::XPtr<py::object> ppy_obj(Rpy_ptr);
+    module.attr("__dict__")[name] = *ppy_obj;
+  }
+	catch (py::error_already_set) {
+		PyErr_Print();
+	}
+  END_RCPP
+  
+}

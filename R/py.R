@@ -27,3 +27,9 @@ pyfun <- function(fun_name, argv, module = "__main__") {
   if (! class(argv) %in% c("character", "list")) stop("invalid type")
   .Call("Rython__fun", module, as.character(fun_name)[1], argv)
 }
+
+#'@export
+pyassign <- function(Rpy_ptr, name, module = "__main__") {
+  stopifnot(class(Rpy_ptr) == "external_ptr")
+  .Call("Rython__assign", Rpy_ptr, name, module)
+}

@@ -24,8 +24,7 @@ To pass object from *R* to *python*, use the following functions:
 
 ```{r type-mapping, echo=FALSE, message=FALSE, results='asis'}
 library(xtable)
-type.mapping <- matrix(byrow=TRUE, ncol=3, c(
-  "function name", "R type", "python type",
+type.mapping <- matrix(dimnames=list(NULL, c("function name", "R type", "python type")), byrow=TRUE, ncol=3, c(
   "pydict", "list", "dictionary",
   "pylong", "integer", "list of long",
   "pyfloat", "numeric", "list of float",

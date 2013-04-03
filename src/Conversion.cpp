@@ -5,18 +5,103 @@
 namespace py = boost::python;
 
 typedef Rcpp::XPtr<py::list> PyList;
+typedef Rcpp::XPtr<py::dict> PyDict;
 typedef Rcpp::XPtr<py::object> PyObj;
+typedef std::vector< std::string > StrVec;
 
-template<class T_in, class T_glue> 
-PyList Rython__as(SEXP Rsrc) {
-  PyList retval(new py::list);
+template<class T_in, class T_glue>
+py::list Rython__as_py_list(SEXP Rsrc) {
+  py::list retval;
   T_in src(Rsrc);
   T_glue glue;
   for(int i = 0;i < src.size();i++) {
     glue = src[i];
-    retval->append(glue);
+    retval.append(glue);
   }
   return retval;
+}
+
+template<class T_in, class T_glue> 
+PyList Rython__as(SEXP Rsrc) {
+  PyList retval(new py::list(Rython__as_py_list<T_in, T_glue>(Rsrc)));
+  return retval;
+}
+
+void Rython__python_add_auto_type(py::dict& dst, int i, SEXP src, bool is_python_list) {
+  if (is_python_list) {
+    switch(TYPEOF(src)) {
+    case LGLSXP:
+      dst[i] = Rython__as_py_list<Rcpp::LogicalVector, bool>(src);
+      return;
+    case INTSXP:
+      dst[i] = Rython__as_py_list<Rcpp::IntegerVector, long>(src);
+      return;
+    case REALSXP:
+      dst[i] = Rython__as_py_list<Rcpp::NumericVector, double>(src);
+      return;
+    case STRSXP:
+      dst[i] = Rython__as_py_list<Rcpp::CharacterVector, std::string>(src);
+      return;
+    default:
+      throw std::invalid_argument("invalid type");
+    }
+  }
+  switch(TYPEOF(src)) {
+  case LGLSXP:
+    dst[i] = Rcpp::as<bool>(src);
+    return;
+  case INTSXP:
+    dst[i] = Rcpp::as<long>(src);
+    return;
+  case REALSXP:
+    dst[i] = Rcpp::as<double>(src);
+    return;
+  case STRSXP:
+    dst[i] = Rcpp::as<std::string>(src);
+    return;
+  default:
+    throw std::invalid_argument("invalid type");
+  }
+}
+
+void Rython__python_add_auto_type(py::dict& dst, const std::string& i, SEXP src, bool is_python_list) {
+  switch(TYPEOF(src)) {
+  case LGLSXP:
+    dst[i] = Rcpp::as<bool>(src);
+  case INTSXP:
+    dst[i] = Rcpp::as<long>(src);
+  case REALSXP:
+    dst[i] = Rcpp::as<double>(src);
+  case STRSXP:
+    dst[i] = Rcpp::as<std::string>(src);
+  default:
+    throw std::invalid_argument("invalid type");
+  }
+}
+
+
+SEXP Rython__pydict(SEXP Rsrc, SEXP Ris_python_list) {
+  BEGIN_RCPP
+  Rcpp::List src(Rsrc);
+  bool is_python_list(Rcpp::as<bool>(Ris_python_list));
+  Rcpp::CharacterVector src_name(Rcpp::wrap(src.names()));
+  std::string name_glue;
+  PyDict retval(new py::dict);
+  (*retval)[0] = 1;
+  (*retval)["test"] = 2;
+  (*retval)[5] = 3.0;
+  return retval;
+  for(int i = 0;i < src.size();i++) {
+    name_glue.assign(src_name[i]);
+    if (name_glue.size() == 0) {
+      Rython__python_add_auto_type(*retval, i, Rcpp::wrap(src[i]), is_python_list);
+    } 
+    else {
+      Rython__python_add_auto_type(*retval, name_glue, Rcpp::wrap(src[i]), is_python_list);
+    }
+  }
+  return retval;
+  END_RCPP
 }
 
 SEXP Rython__pylong(SEXP Rsrc) {

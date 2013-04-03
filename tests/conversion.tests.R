@@ -52,3 +52,7 @@ stopifnot(class(result) == "list")
 stopifnot(all.equal(unlist(result), letters))
 result <- pywrap(temp2, FALSE)
 stopifnot(all.equal(result, letters))
+
+# test pydict
+temp <- pydict(list(a=1L, b=2.0, c=letters), TRUE)
+pyassign(temp, "temp")

@@ -1,4 +1,10 @@
 #'@export
+pydict <- function(src, is_python_list = FALSE) {
+  stopifnot(class(src) == "list")
+  .Call("Rython__pydict", src, is_python_list)
+}
+
+#'@export
 pylong <- function(src) {
   .Call("Rython__pylong", src)	
 }

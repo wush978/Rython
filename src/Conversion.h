@@ -5,6 +5,7 @@
 
 #include <Rcpp.h>
 
+RcppExport SEXP Rython__pydict(SEXP Rsrc, SEXP Ris_python_list);
 RcppExport SEXP Rython__pylong(SEXP Rsrc);
 RcppExport SEXP Rython__pyfloat(SEXP Rscr);
 RcppExport SEXP Rython__pybool(SEXP Rscr);

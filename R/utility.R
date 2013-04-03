@@ -14,3 +14,11 @@ class StdoutCatcher:
 .Last.lib <- function(libpath) {
   .Call("Rython__finalize")
 }
+
+#'@export
+import_pkg_module <- function(pkg_name, module_name) {
+  path <- normalizePath(system.file("python", package=pkg_name), mustWork=TRUE)
+  py("import sys")
+  py(sprintf("sys.path.append('%s')", path))
+  py(sprintf("import %s", module_name))
+}

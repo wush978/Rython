@@ -30,6 +30,6 @@ pyfun <- function(fun_name, argv, module = "__main__") {
 
 #'@export
 pyassign <- function(Rpy_ptr, name, module = "__main__") {
-  stopifnot(class(Rpy_ptr) == "external_ptr")
+  stopifnot(class(Rpy_ptr) == "externalptr")
   .Call("Rython__assign", Rpy_ptr, name, module)
 }

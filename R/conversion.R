@@ -25,7 +25,7 @@ pystr <- function(src) {
 }
 
 #'@export
-pyobj <- function(module_name, obj_name) {
+pyobj <- function(obj_name, module_name = "__main__") {
   .Call("Rython__retrieve_pyobj", module_name, obj_name)
 }
 

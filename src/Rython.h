@@ -9,4 +9,4 @@ RcppExport SEXP Rython__run(SEXP Rpy_script);
 
 RcppExport SEXP Rython__fun(SEXP Rpymodule_name, SEXP Rpyfun_name, SEXP Rpyfun_argv);
 
-RcppExport SEXP Rython__asign(SEXP Rpy_ptr, SEXP Rname, SEXP Rmodule_name);
+RcppExport SEXP Rython__assign(SEXP Rpy_ptr, SEXP Rname, SEXP Rmodule_name);

@@ -1,3 +1,4 @@
+export(import_pkg_module)
 export(.Last.lib)
 export(py)
 export(pybool)

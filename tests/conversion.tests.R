@@ -56,3 +56,4 @@ stopifnot(all.equal(result, letters))
 # test pydict
 temp <- pydict(list(a=1L, b=2.0, c=letters), TRUE)
 pyassign(temp, "temp")
+py("print temp")

@@ -22,18 +22,18 @@ py("python script")
 
 To pass object from *R* to *python*, use the following functions:
 
-<!-- html table generated in R 2.15.3 by xtable 1.7-1 package -->
-<!-- Wed Apr  3 17:37:21 2013 -->
-<TABLE border=1>
-<TR> <TH>  </TH> <TH> 1 </TH> <TH> 2 </TH> <TH> 3 </TH>  </TR>
-  <TR> <TD align="right"> 1 </TD> <TD> function name </TD> <TD> R type </TD> <TD> python type </TD> </TR>
-  <TR> <TD align="right"> 2 </TD> <TD> pydict </TD> <TD> list </TD> <TD> dictionary </TD> </TR>
-  <TR> <TD align="right"> 3 </TD> <TD> pylong </TD> <TD> integer </TD> <TD> list of long </TD> </TR>
-  <TR> <TD align="right"> 4 </TD> <TD> pyfloat </TD> <TD> numeric </TD> <TD> list of float </TD> </TR>
-  <TR> <TD align="right"> 5 </TD> <TD> pybool </TD> <TD> logical </TD> <TD> list of bool </TD> </TR>
-  <TR> <TD align="right"> 6 </TD> <TD> pystr </TD> <TD> character </TD> <TD> list of str </TD> </TR>
-   </TABLE>
-
+```{r type-mapping, echo=FALSE, message=FALSE, results='asis'}
+library(xtable)
+type.mapping <- matrix(byrow=TRUE, ncol=3, c(
+  "function name", "R type", "python type",
+  "pydict", "list", "dictionary",
+  "pylong", "integer", "list of long",
+  "pyfloat", "numeric", "list of float",
+  "pybool", "logical", "list of bool",
+  "pystr", "character", "list of str"
+  ))
+print(xtable(type.mapping), type="html")
+```
 
 ## API
 

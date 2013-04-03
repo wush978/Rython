@@ -60,7 +60,7 @@ SEXP Rython__fun(SEXP Rpymodule_name, SEXP Rpyfun_name, SEXP Rpyfun_argv) {
 	END_RCPP
 }
 
-SEXP Rython__asign(SEXP Rpy_ptr, SEXP Rname, SEXP Rmodule_name) {
+SEXP Rython__assign(SEXP Rpy_ptr, SEXP Rname, SEXP Rmodule_name) {
   BEGIN_RCPP
   try {
   	const char

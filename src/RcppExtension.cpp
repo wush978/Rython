@@ -16,7 +16,7 @@ namespace Rython {
     std::string glue;
 		py::list retval;
 		for(int i = 0;i < src.size();i++) {
-      glue.assign(CHAR(STRING_ELT(src.asSexp(), i)));
+      glue.assign(CHAR(STRING_ELT(wrap(src), i)));
 			retval.append(glue);
 		}
 		return retval;
@@ -26,7 +26,7 @@ namespace Rython {
     py::list retval;
     
     for(int i = 0;i < src.size();i++) {
-      CharacterVector element(VECTOR_ELT(src.asSexp(), i));
+      CharacterVector element(VECTOR_ELT(wrap(src), i));
       retval.append(as(element));
     }
     return(retval);

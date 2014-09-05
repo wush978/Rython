@@ -55,6 +55,7 @@ SEXP Rython__fun(SEXP Rpymodule_name, SEXP Rpyfun_name, SEXP Rpyfun_argv) {
 	}
 	catch (py::error_already_set) {
 		PyErr_Print();
+    throw new std::runtime_error("");
 	}
 
 	END_RCPP
@@ -72,6 +73,7 @@ SEXP Rython__assign(SEXP Rpy_ptr, SEXP Rname, SEXP Rmodule_name) {
   }
 	catch (py::error_already_set) {
 		PyErr_Print();
+    throw new std::runtime_error("");
 	}
   END_RCPP
   

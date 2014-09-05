@@ -21,7 +21,9 @@ SEXP Rython__finalize() {
 SEXP Rython__run(SEXP Rpy_script) {
 	BEGIN_RCPP
 	std::string py_script(Rcpp::as<std::string>(Rpy_script));
-	::PyRun_SimpleString(py_script.c_str());
+	if (0 != ::PyRun_SimpleString(py_script.c_str())) {
+    throw new std::runtime_error("");
+	}
 	END_RCPP
 }
 

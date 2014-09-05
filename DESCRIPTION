@@ -1,7 +1,7 @@
 Package: Rython
 Type: Package
 Title: What the package does (short line)
-Version: 0.2.2
+Version: 0.2.3
 Date: 2013-03-02
 Author: Who wrote it
 Maintainer: Who to complain to <yourfault@somewhere.net>
@@ -10,7 +10,3 @@ License: What Licence is it under ?
 Depends:
     Rcpp (>= 0.10.3)
 LinkingTo: Rcpp
-Collate:
-    'utility.R'
-    'py.R'
-    'conversion.R'
